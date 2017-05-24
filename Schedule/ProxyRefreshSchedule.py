@@ -45,6 +45,7 @@ class ProxyRefreshSchedule(ProxyManager):
         验证raw_proxy_queue中的代理, 将可用的代理放入useful_proxy_queue
         :return:
         """
+        print "validProxy"
         self.db.changeTable(self.raw_proxy_queue)
         raw_proxy = self.db.pop()
         self.log.info('%s start validProxy_a' % time.ctime())
@@ -87,8 +88,10 @@ def main(process_num=30):
 
 def run():
     # main()
+    print "Sched Begin"
     sched = BlockingScheduler()
-    sched.add_job(main, 'interval', minutes=10)
+#    sched.add_job(main, 'interval', minutes=10)
+    sched.add_job(main, 'interval', seconds=60)
     sched.start()
 
 
